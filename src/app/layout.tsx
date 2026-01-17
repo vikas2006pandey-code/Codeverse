@@ -10,7 +10,7 @@ import ShieldCursor from '@/components/stormbreaker-cursor';
 
 
 export const metadata: Metadata = {
-  title: 'MarvelMind',
+  title: 'Codeverse',
   description: 'Battle Marvel AI. Master Your Subjects.',
 };
 
