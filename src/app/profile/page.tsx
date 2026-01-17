@@ -1,11 +1,27 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Medal, Zap, ChevronLeft } from "lucide-react";
+import { Medal, Zap, ChevronLeft, Github, Linkedin, Instagram, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
+import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Define the UserProfile type based on Firestore data structure
+type UserProfile = {
+  username: string;
+  email: string;
+  xp: number;
+  badges: number;
+  photoURL?: string;
+  instagram?: string;
+  linkedin?: string;
+  github?: string;
+};
 
 // Marvel-themed icon for Infinity Stones
 const InfinityStone = ({ color, collected }: { color: string; collected: boolean }) => (
@@ -20,9 +36,47 @@ const InfinityStone = ({ color, collected }: { color: string; collected: boolean
   </div>
 );
 
+const LoadingProfile = () => (
+  <div className="grid gap-8 max-w-4xl mx-auto">
+    <Card>
+      <CardHeader className="flex-row items-center gap-4">
+        <Skeleton className="h-24 w-24 rounded-full" />
+        <div className="space-y-2 flex-grow">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-5 w-64" />
+        </div>
+      </CardHeader>
+    </Card>
+    <Card>
+      <CardHeader>
+        <Skeleton className="h-8 w-24" />
+      </CardHeader>
+      <CardContent>
+        <Skeleton className="h-6 w-1/2 mb-2" />
+        <Skeleton className="h-4 w-full" />
+      </CardContent>
+    </Card>
+    <Card>
+      <CardHeader>
+        <Skeleton className="h-8 w-48" />
+      </CardHeader>
+      <CardContent>
+        <Skeleton className="h-10 w-full" />
+      </CardContent>
+    </Card>
+  </div>
+);
+
+
 export default function ProfilePage() {
-  const userProgress = {
-    xp: 2450,
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const userDocRef = useMemoFirebase(() => (user ? doc(firestore, 'users', user.uid) : null), [user, firestore]);
+  const { data: userProfile, isLoading } = useDoc<UserProfile>(userDocRef);
+
+  // Mock data for features not yet in Firestore
+  const mockProgress = {
     unlockedCharacters: ['Spider-Man', 'Iron Man'],
     allCharacters: ['Spider-Man', 'Iron Man', 'Thanos', 'Captain America', 'Thor', 'Hulk'],
     infinityStones: [
@@ -33,13 +87,33 @@ export default function ProfilePage() {
       { name: 'Time Stone', color: '#2ECC40', collected: false },
       { name: 'Soul Stone', color: '#FF851B', collected: false },
     ],
-    badges: ['Perfect Score', 'Beginner AI Defeated', '10-Day Streak'],
   };
 
-  const currentLevel = Math.floor(userProgress.xp / 1000);
+  if (isLoading) {
+    return (
+      <div className="container py-12">
+        <Skeleton className="h-10 w-48 mb-8" />
+        <div className="text-center mb-12">
+          <Skeleton className="h-12 w-72 mx-auto" />
+          <Skeleton className="h-6 w-96 mx-auto mt-4" />
+        </div>
+        <LoadingProfile />
+      </div>
+    )
+  }
+
+  if (!userProfile) {
+    return (
+        <div className="container py-12 text-center">
+            <p>Could not load user profile.</p>
+        </div>
+    );
+  }
+
+  const currentLevel = Math.floor(userProfile.xp / 1000);
   const xpForCurrentLevel = currentLevel * 1000;
   const xpForNextLevel = (currentLevel + 1) * 1000;
-  const levelProgress = ((userProgress.xp - xpForCurrentLevel) / (xpForNextLevel - xpForCurrentLevel)) * 100;
+  const levelProgress = ((userProfile.xp - xpForCurrentLevel) / (xpForNextLevel - xpForCurrentLevel)) * 100;
 
   return (
     <div className="container py-12">
@@ -59,23 +133,49 @@ export default function ProfilePage() {
       </div>
 
       <div className="grid gap-8 max-w-4xl mx-auto">
+
+        {/* Profile Header */}
+        <Card>
+            <CardHeader className="flex-col md:flex-row items-center gap-6">
+                <Avatar className="h-28 w-28 border-4 border-primary">
+                    <AvatarImage src={userProfile.photoURL} alt={userProfile.username} />
+                    <AvatarFallback className="text-4xl">{userProfile.username?.[0].toUpperCase()}</AvatarFallback>
+                </Avatar>
+                <div className="flex-grow text-center md:text-left">
+                    <CardTitle className="text-3xl font-headline">{userProfile.username}</CardTitle>
+                    <CardDescription className="text-base">{userProfile.email}</CardDescription>
+                    <div className="flex gap-4 mt-4 justify-center md:justify-start">
+                        {userProfile.github && <a href={userProfile.github} target="_blank" rel="noopener noreferrer"><Github className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors"/></a>}
+                        {userProfile.linkedin && <a href={userProfile.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors"/></a>}
+                        {userProfile.instagram && <a href={userProfile.instagram} target="_blank" rel="noopener noreferrer"><Instagram className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors"/></a>}
+                    </div>
+                </div>
+                <Button asChild variant="outline">
+                    <Link href="/profile/manage">
+                        <Settings className="mr-2 h-4 w-4" />
+                        Manage Profile
+                    </Link>
+                </Button>
+            </CardHeader>
+        </Card>
+
         {/* XP and Level */}
         <Card>
           <CardHeader>
             <CardTitle>Level {currentLevel}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-2">XP: {userProgress.xp.toLocaleString()} / {xpForNextLevel.toLocaleString()}</p>
+            <p className="text-sm text-muted-foreground mb-2">XP: {userProfile.xp.toLocaleString()} / {xpForNextLevel.toLocaleString()}</p>
             <Progress value={levelProgress} className="h-4" />
-            <div className="mt-4 flex items-center justify-around text-center pt-4">
+            <div className="mt-4 flex items-center justify-around text-center pt-4 border-t">
               <div>
                 <Medal className="mx-auto h-8 w-8 text-yellow-400 mb-1" />
-                <p className="font-bold text-xl">{userProgress.badges.length}</p>
+                <p className="font-bold text-xl">{userProfile.badges}</p>
                 <p className="text-sm text-muted-foreground">Badges Earned</p>
               </div>
               <div>
                 <Zap className="mx-auto h-8 w-8 text-primary mb-1" />
-                <p className="font-bold text-xl">{userProgress.xp.toLocaleString()}</p>
+                <p className="font-bold text-xl">{userProfile.xp.toLocaleString()}</p>
                 <p className="text-sm text-muted-foreground">Total XP</p>
               </div>
             </div>
@@ -89,11 +189,11 @@ export default function ProfilePage() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">
-              {userProgress.allCharacters.map(char => (
+              {mockProgress.allCharacters.map(char => (
                 <Badge
                   key={char}
-                  variant={userProgress.unlockedCharacters.includes(char) ? 'default' : 'secondary'}
-                  className={!userProgress.unlockedCharacters.includes(char) ? 'opacity-50' : ''}
+                  variant={mockProgress.unlockedCharacters.includes(char) ? 'default' : 'secondary'}
+                  className={!mockProgress.unlockedCharacters.includes(char) ? 'opacity-50' : ''}
                 >
                   {char}
                 </Badge>
@@ -104,12 +204,15 @@ export default function ProfilePage() {
         
         {/* Infinity Stones */}
         <Card>
-          <CardHeader>
+          <CardHeader className="flex-row justify-between items-center">
             <CardTitle>Infinity Stones Collected</CardTitle>
+             <Button asChild variant="ghost" size="sm">
+                <Link href="/badges">View Gauntlet</Link>
+            </Button>
           </CardHeader>
           <CardContent>
             <div className="flex justify-center items-center gap-4 md:gap-8 flex-wrap">
-              {userProgress.infinityStones.map(stone => (
+              {mockProgress.infinityStones.map(stone => (
                 <div key={stone.name} className="flex flex-col items-center gap-2">
                   <InfinityStone color={stone.color} collected={stone.collected} />
                   <p className="text-sm font-medium text-muted-foreground">{stone.name}</p>

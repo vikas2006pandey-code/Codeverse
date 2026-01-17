@@ -29,7 +29,7 @@ const LoadingLeaderboard = () => (
             <TableRow>
                 <TableHead className="w-[100px] text-center">Rank</TableHead>
                 <TableHead>User</TableHead>
-                <TableHead className="text-right">XP</TableHead>
+                <TableHead className="text-right">Points</TableHead>
                 <TableHead className="text-right">Badges</TableHead>
             </TableRow>
         </TableHeader>
@@ -83,7 +83,7 @@ export default function LeaderboardPage() {
       <Card className="max-w-4xl mx-auto">
         <CardHeader>
           <CardTitle>Top Learners</CardTitle>
-          <CardDescription>Current rankings based on XP and achievements.</CardDescription>
+          <CardDescription>Current rankings based on points and achievements.</CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? <LoadingLeaderboard /> : (
@@ -92,7 +92,7 @@ export default function LeaderboardPage() {
                 <TableRow>
                   <TableHead className="w-[100px] text-center">Rank</TableHead>
                   <TableHead>User</TableHead>
-                  <TableHead className="text-right">XP</TableHead>
+                  <TableHead className="text-right">Points</TableHead>
                   <TableHead className="text-right">Badges</TableHead>
                 </TableRow>
               </TableHeader>

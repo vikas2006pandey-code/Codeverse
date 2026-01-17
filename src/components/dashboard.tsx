@@ -34,10 +34,10 @@ export default function Dashboard() {
       <div className="container py-12 animate-in fade-in-up">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-6xl font-headline neon-glow-primary">
-            Mission Hub
+            Welcome, Agent
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground md:text-xl">
-            Welcome back, Agent. Your next challenge awaits. Choose your path.
+            Your mission dashboard is ready. Choose your next challenge or continue your training.
           </p>
         </div>
 

@@ -8,6 +8,7 @@ import AuthGuard from '@/components/auth/auth-guard';
 import { ThemeProvider } from '@/components/theme-provider';
 import ShieldCursor from '@/components/stormbreaker-cursor';
 import Footer from '@/components/layout/footer';
+import JarvisChat from '@/components/JarvisChat';
 
 
 export const metadata: Metadata = {
@@ -45,6 +46,7 @@ export default function RootLayout({
             </main>
             <Toaster />
             <Footer />
+            <JarvisChat />
           </FirebaseClientProvider>
         </ThemeProvider>
       </body>

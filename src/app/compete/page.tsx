@@ -9,8 +9,8 @@ const competeOptions = [
     title: 'Weekly Leagues',
     description: 'Compete in weekly leagues to earn rewards and prove your skills.',
     icon: <Trophy className="w-12 h-12 text-primary" />,
-    href: '#',
-    disabled: true,
+    href: '/leagues',
+    disabled: false,
   },
   {
     title: 'Leaderboard',

@@ -13,13 +13,15 @@ import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useUser, useFirestore, updateDocumentNonBlocking } from '@/firebase';
+import { doc, increment } from 'firebase/firestore';
 
 // Marvel-themed icon for Infinity Stones
 const InfinityStone = ({ color, collected }: { color: string; collected: boolean }) => (
   <div className={`relative transition-all duration-500 ${collected ? 'opacity-100' : 'opacity-20'}`}>
-    <svg viewBox="0 0 100 100" className="w-12 h-12">
+    <svg viewBox="0 0 60 80" className="w-12 h-16">
       <path
-        d="M50 0L61.8 38.2L100 38.2L69.1 61.8L80.9 100L50 76.4L19.1 100L30.9 61.8L0 38.2L38.2 38.2L50 0Z"
+        d="M30 5 C 30 5 0 25 0 40 C 0 55 30 75 30 75 C 30 75 60 55 60 40 C 60 25 30 5 30 5 Z"
         fill={color}
         className={collected ? `drop-shadow-[0_0_8px_${color}]` : ''}
       />
@@ -48,6 +50,9 @@ export default function BattleInterface({ character, questions: allAvailableQues
   const [gameOver, setGameOver] = useState<'win' | 'loss' | null>(null);
   const [aiHint, setAiHint] = useState<string | null>(null);
   const [isHintLoading, setIsHintLoading] = useState(false);
+
+  const { user } = useUser();
+  const firestore = useFirestore();
 
   const IS_TIME_CHALLENGE = character.id === 'doctor-strange';
   const INITIAL_TIME = 20; // 20 seconds for Doctor Strange's challenge
@@ -99,6 +104,17 @@ export default function BattleInterface({ character, questions: allAvailableQues
         setTimeLeft(INITIAL_TIME);
     }
   }, [currentQuestionIndex, gameOver]);
+
+  // Update user XP on win
+  useEffect(() => {
+    if (gameOver === 'win' && user && firestore && score > 0) {
+      const userDocRef = doc(firestore, 'users', user.uid);
+      const xpGained = score * 10; // 10 XP per correct answer
+      updateDocumentNonBlocking(userDocRef, {
+        xp: increment(xpGained),
+      });
+    }
+  }, [gameOver, user, firestore, score]);
 
   const handleAnswer = (answer: string) => {
     if (isAnswered) return;
