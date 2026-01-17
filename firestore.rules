@@ -1,0 +1,111 @@
+/**
+ * This ruleset enforces a strict user-ownership model for the MarvelMind learning platform.
+ * It is designed for rapid prototyping, focusing on robust authorization while remaining flexible
+ * on the specific shape of the data being written.
+ *
+ * Core Philosophy:
+ * The security model is built on "Path-based Ownership." A user's data is exclusively
+ * stored under a path that includes their unique user ID (UID). This ensures that all
+ * security decisions are fast and simple, based directly on the path of the requested document.
+ *
+ * Data Structure:
+ * All user-specific data is nested under the `/users/{userId}` collection. The `{userId}`
+ * in the path MUST match the authenticated user's Firebase Auth UID. This top-level document
+ * stores the user's profile, and any subsequent data (like progress, rewards, etc.)
+ * is expected to be in subcollections under this path.
+ *
+ * Key Security Decisions:
+ * - User Isolation: Users can only access their own data tree. They cannot read, write,
+ *   or even see the existence of data belonging to other users. This is relaxed for the leaderboard.
+ * - Owner-Only Writes: All write operations (create, update, delete) are strictly limited
+ *   to the owner of the document, as determined by the `userId` in the document path.
+ * - Relational Integrity: On creation, the user's profile document must contain an `id` field
+ *   that matches their user ID, creating a durable link between the document's content and its
+ *   path-based ownership. This `id` is immutable.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for reusable logic
+    // These improve readability and reduce code duplication.
+
+    /**
+     * Checks if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Validates that the requesting user's UID matches the userId from the path.
+     * This is the core of the ownership-based security model.
+     * @param userId The user ID from the document path.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /**
+     * Ensures an operation is performed by the owner on an existing document.
+     * Crucial for preventing unintended behavior in update/delete operations.
+     * @param userId The user ID from the document path.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * Validates that the 'id' field within a new User document correctly matches
+     * the document's ID in the path, ensuring data consistency from the start.
+     * @param userId The user ID from the document path.
+     */
+    function hasValidCreationData(userId) {
+      return request.resource.data.id == userId;
+    }
+
+    /**
+     * Ensures that the 'id' field, which links a user document to its owner,
+     * cannot be changed after the document has been created.
+     */
+    function hasImmutableOwnerId() {
+      return request.resource.data.id == resource.data.id;
+    }
+
+
+    /**
+     * @description Controls access to a user's primary profile document.
+     * @path /users/{userId}
+     * @allow A logged-in user can list all users for the leaderboard. (list)
+     * @allow A logged-in user (UID: 'user_abc') can create their own profile at `/users/user_abc`. (create)
+     * @allow The owner ('user_abc') can read, update, or delete their own profile document. (get, update, delete)
+     * @deny A logged-in user (UID: 'user_xyz') is blocked from reading or writing `/users/user_abc`. (get, update)
+     * @deny Anonymous users are blocked from all operations.
+     * @principle Restricts access to a user's own data tree and enforces relational integrity.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if isSignedIn(); // Allow any signed-in user to list users for the leaderboard.
+
+      allow create: if isOwner(userId) && hasValidCreationData(userId);
+      allow update: if isExistingOwner(userId) && hasImmutableOwnerId();
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Secures all subcollections and documents nested under a user's profile.
+     * @path /users/{userId}/{document=**}
+     * @allow The owner ('user_abc') can read and write any document in any subcollection under their own path, like `/users/user_abc/progress/quiz1`. (get, list, create, update, delete)
+     * @deny Any other user ('user_xyz') is blocked from accessing documents under `/users/user_abc/...`.
+     * @principle Enforces a secure data silo where all data within a user's document tree is owned and controlled exclusively by that user.
+     */
+    match /users/{userId}/{document=**} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+  }
+}

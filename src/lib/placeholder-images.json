@@ -1,0 +1,46 @@
+{
+  "placeholderImages": [
+    {
+      "id": "spider-man",
+      "description": "Spider-Man character image",
+      "imageUrl": "https://images.unsplash.com/photo-1679488130633-f0b2314a4112?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzcGlkZXIlMjBzdWl0fGVufDB8fHx8MTc2ODU0ODU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spider suit"
+    },
+    {
+      "id": "iron-man",
+      "description": "Iron Man character image",
+      "imageUrl": "https://images.unsplash.com/photo-1636840438199-9125cd03c3b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpcm9uJTIwc3VpdHxlbnwwfHx8fDE3Njg1NDg1NDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "iron suit"
+    },
+    {
+      "id": "thanos",
+      "description": "Thanos character image",
+      "imageUrl": "https://images.unsplash.com/photo-1727691237385-6d886331bc09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxpbmZpbml0eSUyMGdhdW50bGV0fGVufDB8fHx8MTc2ODU0ODU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "infinity gauntlet"
+    },
+    {
+      "id": "captain-america",
+      "description": "Captain America character image",
+      "imageUrl": "https://images.unsplash.com/photo-1597893983942-a432b0a4e3b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXB0YWluJTIwYW1lcmljYSUyMHNoaWVsZHxlbnwwfHx8fDE3Njg1NDg3ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "captain america shield"
+    },
+    {
+      "id": "thor",
+      "description": "Thor character image",
+      "imageUrl": "https://images.unsplash.com/photo-1620336049257-36873a7c3905?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0aG9yJTIwaGFtbWVyfGVufDB8fHx8MTc2ODU0ODgzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "thor hammer"
+    },
+    {
+      "id": "hulk",
+      "description": "Hulk character image",
+      "imageUrl": "https://images.unsplash.com/photo-1611267421372-52033b006c8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmVlbiUyMG1vbnN0ZXJ8ZW58MHx8fHwxNzY4NTQ4ODY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "green monster"
+    },
+    {
+      "id": "doctor-strange",
+      "description": "Doctor Strange character image",
+      "imageUrl": "https://images.unsplash.com/photo-1620712943543-959698a39396?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxteXN0aWMlMjBhcnRzfGVufDB8fHx8MTc2ODU0ODg2OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mystic arts"
+    }
+  ]
+}
