@@ -7,11 +7,12 @@ import { FirebaseClientProvider } from '@/firebase/client-provider';
 import AuthGuard from '@/components/auth/auth-guard';
 import { ThemeProvider } from '@/components/theme-provider';
 import ShieldCursor from '@/components/stormbreaker-cursor';
+import Footer from '@/components/layout/footer';
 
 
 export const metadata: Metadata = {
   title: 'Codeverse',
-  description: 'Battle Marvel AI. Master Your Subjects.',
+  description: 'Battle AI Opponents. Master Your Subjects.',
 };
 
 export default function RootLayout({
@@ -43,6 +44,7 @@ export default function RootLayout({
               </AuthGuard>
             </main>
             <Toaster />
+            <Footer />
           </FirebaseClientProvider>
         </ThemeProvider>
       </body>

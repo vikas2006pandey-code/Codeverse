@@ -13,7 +13,7 @@ export default function GetStartedPage() {
             Your Journey Begins Now
           </CardTitle>
           <CardDescription className="mt-4 text-lg text-muted-foreground">
-            You're about to enter the MarvelMind universe, where learning is an epic adventure.
+            You're about to enter the Codeverse universe, where learning is an epic adventure.
             Create an account to start your training, or log in to continue your mission.
           </CardDescription>
         </CardHeader>

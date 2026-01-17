@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, LogOut, Bell, User, Settings, Moon, Award, Trophy } from 'lucide-react';
+import { Menu, LogOut, User, Settings, Moon, Award, Trophy } from 'lucide-react';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
@@ -23,6 +23,9 @@ import { useTheme } from 'next-themes';
 
 const NavLinks = () => (
   <>
+    <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
+      Home
+    </Link>
     <Link href="/learning" className="text-sm font-medium transition-colors hover:text-primary">
       Missions
     </Link>
@@ -40,6 +43,9 @@ const NavLinks = () => (
 
 const MobileNavLinks = () => (
   <>
+    <Link href="/" className="text-foreground transition-colors hover:text-primary">
+      Home
+    </Link>
     <Link href="/learning" className="text-foreground transition-colors hover:text-primary">
       Missions
     </Link>
@@ -83,7 +89,7 @@ export default function Header() {
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
-            <span className="font-bold font-headline">MarvelMind</span>
+            <span className="font-bold font-headline">Codeverse</span>
           </Link>
           {!isUserLoading && user && (
             <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -118,7 +124,7 @@ export default function Header() {
                 >
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                 </svg>
-                <span className="font-bold font-headline">MarvelMind</span>
+                <span className="font-bold font-headline">Codeverse</span>
               </Link>
               {!isUserLoading && user && (
                 <nav className="grid gap-4 text-lg font-medium">
@@ -163,19 +169,11 @@ export default function Header() {
               >
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
               </svg>
-              <span className="font-bold font-headline">MarvelMind</span>
+              <span className="font-bold font-headline">Codeverse</span>
           </Link>
           <div className="hidden md:flex items-center gap-2">
             {!isUserLoading && user ? (
               <>
-                <div className="relative">
-                    <Button variant="ghost" size="icon">
-                        <Bell className="h-5 w-5" />
-                        <span className="sr-only">Notifications</span>
-                    </Button>
-                    <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">15</div>
-                </div>
-
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">

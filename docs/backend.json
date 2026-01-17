@@ -4,7 +4,7 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "User",
       "type": "object",
-      "description": "Represents a user of the MarvelMind learning platform.",
+      "description": "Represents a user of the Codeverse learning platform.",
       "properties": {
         "id": {
           "type": "string",
@@ -130,6 +130,6 @@
         }
       }
     ],
-    "reasoning": "The Firestore structure is designed to support user authentication and store user-related data for the MarvelMind learning platform. It prioritizes authorization independence through the use of path-based ownership for user data. The structure includes a collection for user profiles and a subcollection for user-specific data, such as progress and rewards, which are not explicitly defined in the initial entities but implied by the application requirements. This design supports QAPs because list operations on `/users/{userId}` will only retrieve the profiles owned by that user. Security rules can easily validate that `request.auth.uid == userId`. Since the entity definitions are minimal, the structure focuses on the core user model and anticipates the need for expansion based on the features described in the application requirements. Specifically, the inclusion of `/users/{userId}` enables the creation of subcollections to house user-specific battle/quiz data and progress, ensuring that access to this data is restricted to the owning user."
+    "reasoning": "The Firestore structure is designed to support user authentication and store user-related data for the Codeverse learning platform. It prioritizes authorization independence through the use of path-based ownership for user data. The structure includes a collection for user profiles and a subcollection for user-specific data, such as progress and rewards, which are not explicitly defined in the initial entities but implied by the application requirements. This design supports QAPs because list operations on `/users/{userId}` will only retrieve the profiles owned by that user. Security rules can easily validate that `request.auth.uid == userId`. Since the entity definitions are minimal, the structure focuses on the core user model and anticipates the need for expansion based on the features described in the application requirements. Specifically, the inclusion of `/users/{userId}` enables the creation of subcollections to house user-specific battle/quiz data and progress, ensuring that access to this data is restricted to the owning user."
   }
 }

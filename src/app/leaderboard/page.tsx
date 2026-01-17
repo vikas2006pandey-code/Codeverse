@@ -77,7 +77,7 @@ export default function LeaderboardPage() {
           Leaderboard
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          See who is at the top of the MarvelMind universe.
+          See who is at the top of the Codeverse universe.
         </p>
       </div>
       <Card className="max-w-4xl mx-auto">
