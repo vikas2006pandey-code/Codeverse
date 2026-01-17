@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -9,8 +10,8 @@ import { MessageSquare, X, Send, Bot } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-// This would be the actual server action calling the Genkit flow
-// import { getJarvisResponse } from '@/app/chat/actions';
+import { getJarvisResponse } from '@/app/chat/actions';
+import type { JarvisInput } from '@/ai/flows/jarvis-chat-flow';
 
 type Message = {
   sender: 'user' | 'jarvis';
@@ -30,6 +31,7 @@ const JarvisChat = () => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -42,22 +44,45 @@ const JarvisChat = () => {
     if (!text.trim()) return;
 
     const userMessage: Message = { sender: 'user', text };
-    setMessages(prev => [...prev, userMessage]);
+    const newMessages: Message[] = [...messages, userMessage];
+    setMessages(newMessages);
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response
-    // In a real implementation, you would call your Genkit flow here
-    // const response = await getJarvisResponse({ gameContext: '...', userMessage: text });
-    setTimeout(() => {
-      const aiResponse: Message = {
-        sender: 'jarvis',
-        text: `Thinking... Based on your fight with Captain America, let's break down CSS Flexbox. What part is confusing you?`,
-        quickReplies: ['justify-content', 'align-items', 'flex-direction'],
-      };
-      setMessages(prev => [...prev, aiResponse]);
-      setIsTyping(false);
-    }, 1500);
+    const conversationHistory = newMessages.slice(-6).map(msg => ({
+        role: msg.sender === 'user' ? 'user' as const : 'model' as const,
+        content: msg.text,
+    }));
+
+    const jarvisInput: JarvisInput = {
+        gameContext: {
+            game: 'Codeverse Platform',
+            currentPath: pathname,
+            concept: 'General',
+        },
+        userMessage: text,
+        studentLevel: 'beginner',
+        conversationHistory,
+    };
+
+    try {
+        const response = await getJarvisResponse(jarvisInput);
+        const aiResponse: Message = {
+            sender: 'jarvis',
+            text: response.response,
+            quickReplies: response.quickReplies,
+        };
+        setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+        console.error("Jarvis Error:", error);
+        const errorResponse: Message = {
+            sender: 'jarvis',
+            text: "My apologies, I seem to be experiencing a temporary malfunction. Please try again shortly.",
+        };
+        setMessages(prev => [...prev, errorResponse]);
+    } finally {
+        setIsTyping(false);
+    }
   };
 
   return (
@@ -93,7 +118,7 @@ const JarvisChat = () => {
                 <div key={index} className={cn('flex items-end gap-2', msg.sender === 'user' ? 'justify-end' : 'justify-start')}>
                   {msg.sender === 'jarvis' && <Avatar className="h-6 w-6"><AvatarFallback>J</AvatarFallback></Avatar>}
                   <div className={cn('max-w-[80%] rounded-lg px-3 py-2 text-sm', msg.sender === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
-                    {msg.text}
+                    <div dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
                      {msg.sender === 'jarvis' && msg.quickReplies && (
                         <div className="flex flex-wrap gap-2 mt-3">
                             {msg.quickReplies.map(reply => (

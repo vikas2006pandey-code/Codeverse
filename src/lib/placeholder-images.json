@@ -15,31 +15,31 @@
     {
       "id": "thanos",
       "description": "Thanos character image",
-      "imageUrl": "https://images.unsplash.com/photo-1727691237385-6d886331bc09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxpbmZpbml0eSUyMGdhdW50bGV0fGVufDB8fHx8MTc2ODU0ODU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://wallpapers.com/images/featured/thanos-pictures-sal0y1l9lxy8i37m.jpg",
       "imageHint": "infinity gauntlet"
     },
     {
       "id": "captain-america",
       "description": "Captain America character image",
-      "imageUrl": "https://images.unsplash.com/photo-1597893983942-a432b0a4e3b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXB0YWluJTIwYW1lcmljYSUyMHNoaWVsZHxlbnwwfHx8fDE3Njg1NDg3ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://i.pinimg.com/236x/37/7d/35/377d355aec978002dbf890249ad1c610.jpg",
       "imageHint": "captain america shield"
     },
     {
       "id": "thor",
       "description": "Thor character image",
-      "imageUrl": "https://images.unsplash.com/photo-1620336049257-36873a7c3905?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0aG9yJTIwaGFtbWVyfGVufDB8fHx8MTc2ODU0ODgzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://i.pinimg.com/736x/65/ee/5b/65ee5b01683c9600d0a00f979408bee9.jpg",
       "imageHint": "thor hammer"
     },
     {
       "id": "hulk",
       "description": "Hulk character image",
-      "imageUrl": "https://images.unsplash.com/photo-1611267421372-52033b006c8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmVlbiUyMG1vbnN0ZXJ8ZW58MHx8fHwxNzY4NTQ4ODY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://rukminim2.flixcart.com/image/480/640/xif0q/poster/e/l/w/medium-poster-design-no-3081-hulk-poster-hulk-posters-for-room-original-imaggbyahnsrq4hn.jpeg?q=90",
       "imageHint": "green monster"
     },
     {
       "id": "doctor-strange",
       "description": "Doctor Strange character image",
-      "imageUrl": "https://images.unsplash.com/photo-1620712943543-959698a39396?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxteXN0aWMlMjBhcnRzfGVufDB8fHx8MTc2ODU0ODg2OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://i.pinimg.com/736x/5e/6a/01/5e6a01e41322b9454a88b9d135ec0b91.jpg",
       "imageHint": "mystic arts"
     }
   ]

@@ -15,12 +15,15 @@ import { collection, query, orderBy } from 'firebase/firestore';
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 type UserProfile = {
   id: string;
   username: string;
   xp: number;
   badges: number;
+  photoURL?: string;
 }
 
 const LoadingLeaderboard = () => (
@@ -36,8 +39,13 @@ const LoadingLeaderboard = () => (
         <TableBody>
             {Array.from({ length: 5 }).map((_, i) => (
                 <TableRow key={i}>
-                    <TableCell><Skeleton className="h-5 w-10 mx-auto" /></TableCell>
-                    <TableCell><Skeleton className="h-5 w-32" /></TableCell>
+                    <TableCell><Skeleton className="h-6 w-10 mx-auto" /></TableCell>
+                    <TableCell>
+                        <div className="flex items-center gap-4">
+                            <Skeleton className="h-10 w-10 rounded-full" />
+                            <Skeleton className="h-5 w-32" />
+                        </div>
+                    </TableCell>
                     <TableCell className="text-right"><Skeleton className="h-5 w-12 ml-auto" /></TableCell>
                     <TableCell className="text-right"><Skeleton className="h-5 w-8 ml-auto" /></TableCell>
                 </TableRow>
@@ -98,17 +106,38 @@ export default function LeaderboardPage() {
               </TableHeader>
               <TableBody>
                 {leaderboard.map((user) => (
-                  <TableRow key={user.id} className={user.id === currentUser?.uid ? "bg-primary/10" : ""}>
-                    <TableCell className="font-bold text-center flex items-center justify-center gap-2">
-                      {user.rank === 1 && <Trophy className="w-5 h-5 text-yellow-400" />}
-                      {user.rank === 2 && <Trophy className="w-5 h-5 text-gray-400" />}
-                      {user.rank === 3 && <Trophy className="w-5 h-5 text-yellow-600" />}
-                      {user.rank}
+                  <TableRow 
+                    key={user.id} 
+                    className={cn(
+                        user.id === currentUser?.uid && "bg-primary/10 border-b-2 border-primary/50",
+                        user.rank === 1 && "bg-yellow-400/10",
+                        user.rank === 2 && "bg-gray-400/10",
+                        user.rank === 3 && "bg-yellow-600/10"
+                    )}
+                  >
+                    <TableCell className="font-bold text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        {user.rank === 1 && <Trophy className="w-6 h-6 text-yellow-400 drop-shadow-[0_0_4px_#facc15]" />}
+                        {user.rank === 2 && <Trophy className="w-6 h-6 text-gray-300 drop-shadow-[0_0_4px_#d1d5db]" />}
+                        {user.rank === 3 && <Trophy className="w-6 h-6 text-yellow-700 drop-shadow-[0_0_4px_#b45309]" />}
+                        <span className="text-lg">{user.rank}</span>
+                      </div>
                     </TableCell>
-                    <TableCell>{user.username}</TableCell>
-                    <TableCell className="text-right">{(user.xp || 0).toLocaleString()}</TableCell>
-                    <TableCell className="text-right flex items-center justify-end gap-2">
-                      {user.badges || 0} <Medal className="w-4 h-4 text-yellow-500" />
+                    <TableCell>
+                        <div className="flex items-center gap-4">
+                            <Avatar className="h-10 w-10">
+                                <AvatarImage src={user.photoURL} alt={user.username} />
+                                <AvatarFallback>{user.username ? user.username[0].toUpperCase() : '?'}</AvatarFallback>
+                            </Avatar>
+                            <span className="font-medium">{user.username}</span>
+                        </div>
+                    </TableCell>
+                    <TableCell className="text-right font-mono text-base">{(user.xp || 0).toLocaleString()}</TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <span className="font-mono text-base">{user.badges || 0}</span>
+                        <Medal className="w-5 h-5 text-yellow-500" />
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

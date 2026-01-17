@@ -38,6 +38,9 @@ const NavLinks = () => (
     <Link href="/games" className="text-sm font-medium transition-colors hover:text-primary">
       Games
     </Link>
+    <Link href="/examination" className="text-sm font-medium transition-colors hover:text-primary">
+      Examination
+    </Link>
   </>
 );
 
@@ -57,6 +60,9 @@ const MobileNavLinks = () => (
     </Link>
     <Link href="/games" className="text-foreground transition-colors hover:text-primary">
       Games
+    </Link>
+    <Link href="/examination" className="text-foreground transition-colors hover:text-primary">
+      Examination
     </Link>
   </>
 )
