@@ -40,6 +40,14 @@ const puzzles = [
   },
 ];
 
+const HTMLBuilderHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center gap-2">
+        <span className="text-4xl text-muted-foreground animate-[tags-assemble_3s_ease-in-out_infinite]">&lt;</span>
+        <Code className="h-16 w-16 text-primary" />
+        <span className="text-4xl text-muted-foreground animate-[tags-assemble_3s_ease-in-out_infinite]" style={{animationDelay: '0.5s'}}>&gt;</span>
+    </div>
+);
+
 export default function HTMLEscapeRoomPage() {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -102,6 +110,7 @@ export default function HTMLEscapeRoomPage() {
         </Link>
       </Button>
       <div className="text-center mb-8">
+        <HTMLBuilderHeaderAnimation />
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
           HTML Page Builder
         </h1>

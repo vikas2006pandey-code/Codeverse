@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import AuthGuard from '@/components/auth/auth-guard';
 import { ThemeProvider } from '@/components/theme-provider';
+import ShieldCursor from '@/components/stormbreaker-cursor';
 
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
+            <ShieldCursor />
             <Header />
             <main className="min-h-[calc(100vh-3.5rem)]">
               <AuthGuard>

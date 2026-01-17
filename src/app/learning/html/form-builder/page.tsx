@@ -47,6 +47,16 @@ const puzzles = [
   },
 ];
 
+const FormBuilderHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center gap-2">
+        <div className="flex flex-col gap-2">
+            <div className="w-32 h-4 bg-muted rounded-sm animate-[form-assemble_2s_ease-out_forwards]" style={{animationDelay: '0s'}} />
+            <div className="w-32 h-4 bg-muted rounded-sm animate-[form-assemble_2s_ease-out_forwards]" style={{animationDelay: '0.3s'}} />
+        </div>
+        <div className="w-16 h-8 bg-primary rounded-md animate-[form-assemble_2s_ease-out_forwards]" style={{animationDelay: '0.6s'}} />
+    </div>
+);
+
 export default function HTMLFormBuilderPage() {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -109,6 +119,7 @@ export default function HTMLFormBuilderPage() {
         </Link>
       </Button>
       <div className="text-center mb-8">
+        <FormBuilderHeaderAnimation />
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
           HTML Form Builder
         </h1>

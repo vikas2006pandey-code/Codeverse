@@ -40,6 +40,19 @@ const puzzles = [
   }
 ];
 
+const FunctionFactoryHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center overflow-hidden">
+        <div className="absolute w-full h-2 bg-muted/50" />
+        <div className="absolute flex gap-8 animate-[conveyor-belt_5s_linear_infinite]">
+            <span className="text-2xl font-code text-muted-foreground">{'{}'}</span>
+            <span className="text-2xl font-code text-muted-foreground">{'()'}</span>
+            <span className="text-2xl font-code text-muted-foreground">{'[]'}</span>
+            <span className="text-2xl font-code text-muted-foreground">{'//'}</span>
+        </div>
+        <Code className="h-16 w-16 text-primary relative z-10" />
+    </div>
+);
+
 export default function FunctionFactoryPage() {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -102,6 +115,7 @@ export default function FunctionFactoryPage() {
         </Link>
       </Button>
       <div className="text-center mb-8">
+        <FunctionFactoryHeaderAnimation />
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
           Function Factory
         </h1>

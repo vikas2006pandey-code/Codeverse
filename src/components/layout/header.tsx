@@ -23,9 +23,6 @@ import { useTheme } from 'next-themes';
 
 const NavLinks = () => (
   <>
-    <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
-      Home
-    </Link>
     <Link href="/learning" className="text-sm font-medium transition-colors hover:text-primary">
       Missions
     </Link>
@@ -43,9 +40,6 @@ const NavLinks = () => (
 
 const MobileNavLinks = () => (
   <>
-    <Link href="/" className="text-foreground transition-colors hover:text-primary">
-      Home
-    </Link>
     <Link href="/learning" className="text-foreground transition-colors hover:text-primary">
       Missions
     </Link>

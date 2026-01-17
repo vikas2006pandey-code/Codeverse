@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  ::selection {
+    background: hsl(var(--primary) / 0.7);
+    color: hsl(var(--background));
+    text-shadow: 0 0 5px hsl(var(--primary));
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -72,17 +78,16 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+    cursor: none;
   }
-  a, button, [role='button'] {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='gold' viewBox='0 0 24 24'%3e%3cpath d='M4 4l16 7-7 2 2 7-7-16z'/%3e%3c/svg%3e") 4 4, auto;
+  a, button, [role="button"] {
+    cursor: none;
   }
 }
 
@@ -98,4 +103,134 @@
       0 0 5px hsl(var(--accent) / 0.7),
       0 0 10px hsl(var(--accent) / 0.7);
   }
+
+  /* Terminal Game Styles */
+  .terminal-container {
+    @apply bg-black text-foreground font-code p-4 rounded-lg border border-border h-[calc(100vh-10rem)] flex flex-col;
+  }
+  .output-area {
+    @apply flex-grow overflow-y-auto mb-4;
+  }
+  .output-area > div {
+    @apply whitespace-pre-wrap;
+  }
+  .terminal-input-line {
+    @apply flex items-center;
+  }
+  .terminal-prompt {
+    @apply text-green-400 mr-2;
+  }
+  .terminal-input {
+    @apply bg-transparent border-none outline-none text-green-400 w-full;
+  }
+  .terminal-input:focus + .cursor {
+    @apply inline;
+  }
+  .cursor {
+    @apply bg-green-400 w-2 h-4 inline-block ml-1 animate-blink;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  /* The Descent Game Styles */
+  .text-glow-red {
+    text-shadow: 0 0 8px hsl(var(--destructive)), 0 0 16px hsl(var(--destructive) / 0.5);
+  }
+  .text-glow-yellow {
+    text-shadow: 0 0 8px hsl(var(--chart-4)), 0 0 16px hsl(var(--chart-4) / 0.5);
+  }
+
+  /* New Game Animations */
+  @keyframes bug-scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  @keyframes color-flow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+  }
+  @keyframes key-press {
+    0%, 100% { transform: translateY(0); box-shadow: 0 3px hsl(var(--muted-foreground)); }
+    50% { transform: translateY(2px); box-shadow: 0 1px hsl(var(--muted-foreground)); }
+  }
+  @keyframes rocket-voyage {
+    0% { transform: translate(-10px, 10px) rotate(-45deg); }
+    50% { transform: translate(10px, -10px) rotate(-45deg); }
+    100% { transform: translate(-10px, 10px) rotate(-45deg); }
+  }
+   @keyframes conveyor-belt {
+    0% { transform: translateX(-20%); }
+    100% { transform: translateX(20%); }
+  }
+   @keyframes dom-change {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.9); }
+  }
+  @keyframes selector-target {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+  @keyframes layout-build {
+    0% { transform: translate(-10px, -10px); }
+    25% { transform: translate(10px, -10px); }
+    50% { transform: translate(10px, 10px); }
+    75% { transform: translate(-10px, 10px); }
+    100% { transform: translate(-10px, -10px); }
+  }
+  @keyframes form-assemble {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes tags-assemble {
+    0% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    100% { transform: translateX(-5px); }
+  }
+}
+
+/* Small Shield Cursor */
+.shield {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  animation: spin 6s linear infinite;
+  background:
+    radial-gradient(circle at center,
+      #ffffff 0%,
+      #ffffff 12%,
+      #0057ff 12%,
+      #0057ff 28%,
+      #ff0000 28%,
+      #ff0000 45%,
+      #c00000 45%,
+      #c00000 100%
+    );
+  box-shadow:
+    0 0 4px rgba(0, 87, 255, 0.8),
+    0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+/* Small Star */
+.shield::after {
+  content: "★";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  font-size: 7px;
+  color: #0057ff;
+  text-shadow: 0 0 3px #0057ff;
+}
+
+/* Rotation */
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
 }

@@ -33,7 +33,6 @@ export default function ProfilePage() {
       { name: 'Time Stone', color: '#2ECC40', collected: false },
       { name: 'Soul Stone', color: '#FF851B', collected: false },
     ],
-    streak: 15,
     badges: ['Perfect Score', 'Beginner AI Defeated', '10-Day Streak'],
   };
 
@@ -66,18 +65,18 @@ export default function ProfilePage() {
             <CardTitle>Level {currentLevel}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-2">XP: {userProgress.xp} / {xpForNextLevel}</p>
+            <p className="text-sm text-muted-foreground mb-2">XP: {userProgress.xp.toLocaleString()} / {xpForNextLevel.toLocaleString()}</p>
             <Progress value={levelProgress} className="h-4" />
             <div className="mt-4 flex items-center justify-around text-center pt-4">
-              <div>
-                <Zap className="mx-auto h-8 w-8 text-primary mb-1" />
-                <p className="font-bold text-xl">{userProgress.streak}</p>
-                <p className="text-sm text-muted-foreground">Day Streak</p>
-              </div>
               <div>
                 <Medal className="mx-auto h-8 w-8 text-yellow-400 mb-1" />
                 <p className="font-bold text-xl">{userProgress.badges.length}</p>
                 <p className="text-sm text-muted-foreground">Badges Earned</p>
+              </div>
+              <div>
+                <Zap className="mx-auto h-8 w-8 text-primary mb-1" />
+                <p className="font-bold text-xl">{userProgress.xp.toLocaleString()}</p>
+                <p className="text-sm text-muted-foreground">Total XP</p>
               </div>
             </div>
           </CardContent>

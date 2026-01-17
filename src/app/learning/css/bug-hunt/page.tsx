@@ -56,6 +56,13 @@ const puzzles = [
   },
 ];
 
+const BugHuntHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center overflow-hidden">
+        <Bug className="h-16 w-16 text-destructive animate-pulse" />
+        <div className="absolute top-0 left-0 h-full w-1/4 bg-gradient-to-r from-transparent to-primary/30 animate-[bug-scan_4s_ease-in-out_infinite]" />
+    </div>
+);
+
 // Helper to normalize code for comparison
 const normalizeCode = (code: string) => code.replace(/\s+/g, '').trim();
 
@@ -117,8 +124,8 @@ export default function CSSBugHuntPage() {
       <div className="container py-12 flex items-center justify-center">
         <Card className="max-w-2xl text-center">
           <CardHeader>
-            <Bug className="mx-auto h-16 w-16 text-destructive" />
-            <CardTitle className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline mt-4">
+            <BugHuntHeaderAnimation />
+            <CardTitle className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
               CSS Bug Hunt
             </CardTitle>
             <CardDescription className="mt-4 text-lg text-muted-foreground">

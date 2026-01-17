@@ -52,6 +52,16 @@ const puzzles = [
   },
 ];
 
+const LayoutBuilderHeaderAnimation = () => (
+    <div className="relative h-24 w-48 mx-auto mb-4 flex items-center justify-center">
+        <div className="relative w-full h-full border-2 border-dashed border-muted-foreground/50 rounded-md p-2">
+            <div className="absolute w-8 h-8 bg-primary/80 rounded animate-[layout-build_8s_ease-in-out_infinite]" style={{ animationDelay: '0s' }} />
+            <div className="absolute w-8 h-8 bg-accent/80 rounded animate-[layout-build_8s_ease-in-out_infinite]" style={{ animationDelay: '2s' }} />
+            <div className="absolute w-8 h-8 bg-chart-4/80 rounded animate-[layout-build_8s_ease-in-out_infinite]" style={{ animationDelay: '4s' }} />
+        </div>
+    </div>
+);
+
 export default function CSSLayoutBuilderPage() {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -117,6 +127,7 @@ export default function CSSLayoutBuilderPage() {
         </Link>
       </Button>
       <div className="text-center mb-8">
+        <LayoutBuilderHeaderAnimation />
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
           CSS Layout Builder
         </h1>

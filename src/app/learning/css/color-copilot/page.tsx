@@ -61,6 +61,15 @@ const puzzles = [
   },
 ];
 
+const ColorCopilotHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center">
+        <Palette className="h-16 w-16 text-accent" />
+        <div className="absolute w-4 h-4 rounded-full bg-primary animate-[color-flow_3s_ease-in-out_infinite]" style={{ animationDelay: '0s' }}></div>
+        <div className="absolute w-4 h-4 rounded-full bg-chart-4 animate-[color-flow_3s_ease-in-out_infinite]" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute w-4 h-4 rounded-full bg-chart-5 animate-[color-flow_3s_ease-in-out_infinite]" style={{ animationDelay: '2s' }}></div>
+    </div>
+);
+
 // Helper to normalize color strings for comparison
 const normalizeColor = (str: string) => str.toLowerCase().replace(/\s/g, '');
 
@@ -122,8 +131,8 @@ export default function ColorCopilotPage() {
       <div className="container py-12 flex items-center justify-center">
         <Card className="max-w-2xl text-center">
           <CardHeader>
-            <Palette className="mx-auto h-16 w-16 text-accent" />
-            <CardTitle className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline mt-4">
+            <ColorCopilotHeaderAnimation />
+            <CardTitle className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
               Color Co-pilot
             </CardTitle>
             <CardDescription className="mt-4 text-lg text-muted-foreground">

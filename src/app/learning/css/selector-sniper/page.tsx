@@ -64,6 +64,16 @@ const puzzles = [
   },
 ];
 
+const SelectorSniperHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center">
+        <Crosshair className="h-16 w-16 text-primary animate-[selector-target_3s_ease-in-out_infinite]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <p className="font-bold text-lg text-muted-foreground opacity-50">#id</p>
+        </div>
+    </div>
+);
+
+
 export default function SelectorSniperPage() {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -158,6 +168,7 @@ export default function SelectorSniperPage() {
         </Link>
       </Button>
       <div className="text-center mb-8">
+        <SelectorSniperHeaderAnimation />
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
           CSS Selector Sniper
         </h1>

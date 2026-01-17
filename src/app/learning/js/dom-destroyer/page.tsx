@@ -62,6 +62,14 @@ const puzzles = [
   },
 ];
 
+const DOMDestroyerHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center">
+        <MousePointer className="h-16 w-16 text-primary" />
+        <div className="absolute w-6 h-6 bg-destructive/50 rounded animate-[dom-change_2s_ease-in-out_infinite]" style={{ animationDelay: '0s', top: '20%', left: '30%' }}></div>
+        <div className="absolute w-6 h-6 bg-muted/50 rounded animate-[dom-change_2s_ease-in-out_infinite]" style={{ animationDelay: '1s', bottom: '20%', right: '30%' }}></div>
+    </div>
+);
+
 export default function DOMDestroyerPage() {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -139,6 +147,7 @@ export default function DOMDestroyerPage() {
         </Link>
       </Button>
       <div className="text-center mb-8">
+        <DOMDestroyerHeaderAnimation />
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
           DOM Destroyer
         </h1>

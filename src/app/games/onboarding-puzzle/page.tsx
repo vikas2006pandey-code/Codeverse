@@ -19,6 +19,17 @@ const CELL_SIZE_REM = 4.25; // 4rem for cell, 0.25rem for gap
 type Position = { x: number; y: number };
 type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 
+const OnboardingPuzzleHeaderAnimation = () => (
+  <div className="relative h-24 w-full max-w-md mx-auto mb-4 overflow-hidden">
+    {/* Web string */}
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-10 bg-muted-foreground/50"></div>
+    {/* Swinging spider emoji */}
+    <div className="absolute top-8 left-1/2 -translate-x-1/2 text-4xl origin-top animate-spider-swing">
+      🕷️
+    </div>
+  </div>
+);
+
 const OnboardingPuzzleGame = () => {
   const [gameState, setGameState] = useState<'playing' | 'success' | 'failure' | 'executing'>('playing');
   const [characterPos, setCharacterPos] = useState<Position>(START_POS);
@@ -134,6 +145,7 @@ const OnboardingPuzzleGame = () => {
             </Link>
         </Button>
         <div className="text-center mb-8">
+            <OnboardingPuzzleHeaderAnimation />
             <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
             Onboarding Puzzle
             </h1>

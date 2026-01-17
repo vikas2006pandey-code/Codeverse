@@ -61,6 +61,38 @@
         "email",
         "registrationDate"
       ]
+    },
+    "TerminalLevel": {
+      "title": "Terminal Level",
+      "description": "Defines a single level for the terminal coding game.",
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "number",
+          "description": "The level number."
+        },
+        "instruction": {
+          "type": "string",
+          "description": "The instruction displayed to the user."
+        },
+        "expectedCommand": {
+          "type": "string",
+          "description": "The command the user must type."
+        },
+        "successMessage": {
+          "type": "string",
+          "description": "The message shown on success."
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "The message shown on failure."
+        }
+      },
+      "required": [
+        "level",
+        "instruction",
+        "expectedCommand"
+      ]
     }
   },
   "auth": {
@@ -85,6 +117,16 @@
               "description": "The unique identifier of the user.  This MUST match the Firebase Auth UID."
             }
           ]
+        }
+      },
+      {
+        "path": "/terminalLevels/{levelId}",
+        "definition": {
+          "entityName": "TerminalLevel",
+          "schema": {
+            "$ref": "#/backend/entities/TerminalLevel"
+          },
+          "description": "Stores the levels for the terminal coding game."
         }
       }
     ],

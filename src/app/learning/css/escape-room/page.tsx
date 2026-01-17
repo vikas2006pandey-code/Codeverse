@@ -44,6 +44,14 @@ const puzzles = [
   },
 ];
 
+const CSSEscapeRoomHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center">
+        <Paintbrush className="h-16 w-16 text-primary" />
+        <div className="absolute w-24 h-24 rounded-full border-2 border-primary/50 animate-pulse" style={{ animationDelay: '0s' }}></div>
+        <div className="absolute w-40 h-40 rounded-full border-2 border-primary/30 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+    </div>
+);
+
 export default function CSSEscapeRoomPage() {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -113,6 +121,7 @@ export default function CSSEscapeRoomPage() {
         </Link>
       </Button>
       <div className="text-center mb-8">
+        <CSSEscapeRoomHeaderAnimation />
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
           CSS Escape Room
         </h1>

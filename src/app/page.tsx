@@ -6,47 +6,44 @@ import Link from 'next/link';
 import Dashboard from '@/components/dashboard';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const Welcome = () => (
-  <div className="relative min-h-[calc(100vh-3.5rem)] overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 -z-20 bg-background" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,hsl(var(--primary)_/_0.2),rgba(255,255,255,0))]" />
-      
-      {/* Floating Character Images */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <Image
-          src={PlaceHolderImages.find(p => p.id === 'spider-man')?.imageUrl || ''}
-          alt="Spider-Man"
-          width={400}
-          height={400}
-          className="absolute -left-24 top-1/4 opacity-10 animate-float-down"
-          data-ai-hint="spider suit"
-        />
-        <Image
-          src={PlaceHolderImages.find(p => p.id === 'iron-man')?.imageUrl || ''}
-          alt="Iron Man"
-          width={400}
-          height={400}
-          className="absolute -right-24 bottom-1/4 opacity-10 animate-float-up"
-          data-ai-hint="iron suit"
-        />
-      </div>
-
-      <div className="container flex flex-col items-center justify-center text-center min-h-[calc(100vh-3.5rem)] animate-in fade-in-up">
-        <h1 className="text-5xl font-extrabold tracking-tighter sm:text-6xl md:text-7xl font-headline neon-glow-primary">
-          Welcome to MarvelMind
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
-          Battle brilliant AI opponents inspired by Marvel characters and master any subject through exciting, adaptive quizzes. Your epic learning adventure begins now.
-        </p>
-        <Button asChild size="lg" className="mt-8">
-          <Link href="/login">Get Started</Link>
-        </Button>
+    <div className="relative isolate overflow-hidden bg-background">
+      <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:items-center lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
+          <h1 className="mt-10 text-4xl font-bold tracking-tight text-foreground sm:text-6xl font-headline">
+            Battle Marvel AI. Master Your Subjects.
+          </h1>
+          <p className="mt-6 text-lg leading-8 text-muted-foreground">
+            Engage in epic quiz battles against iconic Marvel characters powered by AI. Each victory unlocks new challenges and brings you closer to mastering your chosen subjects.
+          </p>
+          <div className="mt-10 flex items-center gap-x-6">
+            <Button asChild size="lg">
+              <Link href="/register">Get started</Link>
+            </Button>
+            <Button asChild variant="link" size="lg">
+                <Link href="/learning">Learn more <span aria-hidden="true">→</span></Link>
+            </Button>
+          </div>
+        </div>
+        <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
+          <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
+            <div className="-m-2 rounded-xl bg-card/10 p-2 ring-1 ring-inset ring-card/20 lg:-m-4 lg:rounded-2xl lg:p-4">
+              <Image
+                data-ai-hint="app screenshot"
+                src="https://picsum.photos/seed/marvelmind-welcome/1200/800"
+                alt="App screenshot"
+                width={1200}
+                height={800}
+                className="w-[76rem] rounded-md shadow-2xl ring-1 ring-foreground/10"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 );
+
 
 const LoadingScreen = () => (
     <div className="container py-12">

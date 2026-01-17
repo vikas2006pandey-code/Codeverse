@@ -40,6 +40,14 @@ const puzzles = [
   },
 ];
 
+const VariableVoyageHeaderAnimation = () => (
+    <div className="relative h-24 w-full max-w-md mx-auto mb-4 flex items-center justify-center overflow-hidden">
+        <Rocket className="h-16 w-16 text-primary animate-[rocket-voyage_3s_ease-in-out_infinite]" />
+        <span className="absolute top-4 left-1/4 font-code text-muted-foreground">let</span>
+        <span className="absolute bottom-4 right-1/4 font-code text-muted-foreground">const</span>
+    </div>
+);
+
 export default function VariableVoyagePage() {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -102,6 +110,7 @@ export default function VariableVoyagePage() {
         </Link>
       </Button>
       <div className="text-center mb-8">
+        <VariableVoyageHeaderAnimation />
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl font-headline">
           Variable Voyage
         </h1>
